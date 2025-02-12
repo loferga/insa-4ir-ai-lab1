@@ -27,11 +27,23 @@ impl Stats {
 }
 
 pub fn search(init_state: Board) -> (Option<Vec<Direction>>, Stats) {
+    // record the start time when starting the search (so we can later the time that elapsed since)
     let start = std::time::Instant::now();
-    // MinHeap provide allows to store the states to explore, with associated priority
+
+    // frontier: MinHeap provide allows to store the states to explore, with associated priority
     let mut heap: MinHeap<Board> = MinHeap::new();
-    // the standard library provides a HashMap, that can be used to store the cost or other things
-    let mut costs: HashMap<Board, u32> = HashMap::new();
+
+    // the standard library provides a HashMap, that can be used to store the cost and predecessors of each state
+    // assocaciates each state on the frontier to the best cost to reach it
+    let mut path_costs: HashMap<Board, u32> = HashMap::new();
+    // assocaciates each state on the frontier to the its best parent state and the action to it (parent, action)
+    let mut predecessors: HashMap<Board, (Board, Direction)> = HashMap::new();
+
+    // keeps track all states that have been expanded
+    let mut expanded: HashSet<Board> = HashSet::new();
+
+    // ...
+    // TODO: implement the search algorithm
     // ...
 
     // here is an example to measure the runtime and returns the statistics
@@ -49,7 +61,7 @@ mod test {
     fn test_search() {
         use super::*;
 
-        // validates that search oes return the optimal plan on the first 20 isntances
+        // validates that search does return the optimal plan on the first 20 isntances
 
         for (expected_cost, init) in &INSTANCES[0..20] {
             let (path, stats) = search(*init);
