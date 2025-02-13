@@ -12,5 +12,8 @@ use heuristics::*;
 use search::*;
 
 fn main() {
-    println!("I ain't doing nothing yet.")
+    let board = Board::new([[1, 2, 3], [4, 8, 5], [0, 7, 6]]);
+    let winning_moves = &[Direction::Right, Direction::Up, Direction::Right, Direction::Down];
+    board.play(winning_moves);
+    println!("is plan valid: {}", board.is_valid_plan(winning_moves));
 }
